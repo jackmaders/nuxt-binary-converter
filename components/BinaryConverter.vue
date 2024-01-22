@@ -13,7 +13,11 @@ const decimalOutput = computed(() => {
   if (!state.binaryInput) return;
   if (state.binaryInput.length > BINARY_MAX_LENGTH) return;
 
-  return convertBinary(state.binaryInput);
+  const decimal = convertBinary(state.binaryInput);
+
+  if (isNaN(decimal)) return;
+
+  return decimal;
 });
 
 const validateForm = (state: State): FormError[] => {
