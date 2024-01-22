@@ -1,1 +1,1 @@
-{ "*.{ts,vue}": ["eslint --fix --max-warnings 0", "prettier --write"] }
+{ "*.{ts,vue}": ["eslint --fix", "prettier --write"] }
