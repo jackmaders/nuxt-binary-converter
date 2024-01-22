@@ -1,10 +1,15 @@
 // @vitest-environment nuxt
 import type { FormError } from "#ui/types";
 import { mountSuspended } from "@nuxt/test-utils/runtime";
+import { setup } from "@nuxt/test-utils/e2e";
 import { describe, expect, test } from "vitest";
 import BinaryConverterVue from "./BinaryConverter.vue";
 
-describe("BinaryConverterVue", () => {
+describe("BinaryConverterVue", async () => {
+  await setup({
+    build: true,
+  });
+
   test("renders the component correctly", async () => {
     const wrapper = await mountSuspended(BinaryConverterVue);
     expect(wrapper.exists()).toBe(true);
