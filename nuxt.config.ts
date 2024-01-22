@@ -15,4 +15,7 @@ export default defineNuxtConfig({
     // prevent message on startup
     viewer: false,
   },
+  experimental: {
+    appManifest: false,
+  },
 });
