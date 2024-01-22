@@ -20,23 +20,25 @@ const decimalOutput = computed(() => {
   return decimal;
 });
 
-const validateForm = (state: State): FormError[] => {
+function validateForm(): FormError[] {
+  if (!state?.binaryInput) return [];
+
   const errors = [];
 
   if (state.binaryInput && !BINARY_REGEX.test(state.binaryInput))
     errors.push({
       path: "binaryInput",
-      message: "Input binary should only contain 0 and 1.",
+      message: ERROR_INVALID_BINARY,
     });
 
   if (state.binaryInput.length > BINARY_MAX_LENGTH)
     errors.push({
       path: "binaryInput",
-      message: `Input binary should have be fewer than ${BINARY_MAX_LENGTH} characters.`,
+      message: ERROR_BINARY_MAX_LENGTH,
     });
 
   return errors;
-};
+}
 </script>
 
 <template>

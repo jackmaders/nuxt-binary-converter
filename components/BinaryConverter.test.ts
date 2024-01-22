@@ -1,4 +1,5 @@
 // @vitest-environment nuxt
+import type { FormError } from "#ui/types";
 import { mountSuspended } from "@nuxt/test-utils/runtime";
 import { describe, expect, test } from "vitest";
 import BinaryConverterVue from "./BinaryConverter.vue";
@@ -22,25 +23,35 @@ describe("BinaryConverterVue", () => {
     expect((<HTMLInputElement>input.element).value).toBe(INPUT_BINARY);
   });
 
-  test("calculates decimalOutput correctly", async () => {
-    const INPUT_BINARY = "1010";
-    const OUTPUT_DECIMAL = `${convertBinary(INPUT_BINARY)}`;
-    const INPUT_SELECTOR = "[data-test='input']";
-    const OUTPUT_SELECTOR = "[data-test='output']";
+  const binaryScenarios = [
+    { binary: "0", decimal: 0 },
+    { binary: "1", decimal: 1 },
+    { binary: "10", decimal: 2 },
+    { binary: "01", decimal: 1 },
+    { binary: "11001", decimal: 25 },
+    { binary: "11111111", decimal: 255 },
+  ];
 
-    const wrapper = await mountSuspended(BinaryConverterVue);
+  test.each(binaryScenarios)(
+    "convertBinary($binary) -> $decimal",
+    async ({ binary, decimal }) => {
+      const INPUT_SELECTOR = "[data-test='input']";
+      const OUTPUT_SELECTOR = "[data-test='output']";
 
-    const input = wrapper.find(INPUT_SELECTOR);
-    const output = wrapper.find(OUTPUT_SELECTOR);
+      const wrapper = await mountSuspended(BinaryConverterVue);
 
-    await input.setValue(INPUT_BINARY);
+      const input = wrapper.find(INPUT_SELECTOR);
+      const output = wrapper.find(OUTPUT_SELECTOR);
 
-    expect((<HTMLInputElement>output.element).innerText).toBe(OUTPUT_DECIMAL);
-  });
+      await input.setValue(binary);
+
+      expect((<HTMLInputElement>output.element).innerText).toBe(`${decimal}`);
+    },
+  );
 
   test("handles invalid characters", async () => {
     const INPUT_BINARY = "ab";
-    const OUTPUT_DECIMAL = "NaN";
+    const OUTPUT_DECIMAL = "";
     const INPUT_SELECTOR = "[data-test='input']";
     const OUTPUT_SELECTOR = "[data-test='output']";
 
@@ -51,9 +62,13 @@ describe("BinaryConverterVue", () => {
 
     await input.setValue(INPUT_BINARY);
 
-    expect((<HTMLInputElement>output.element).innerText).toBe(OUTPUT_DECIMAL);
+    const formErrors: FormError[] = (wrapper.vm as any).validateForm();
+    const invalidBinaryError = formErrors.some((formError) => {
+      return formError.message === ERROR_INVALID_BINARY;
+    });
 
-    // TODO: check for error message
+    expect((<HTMLInputElement>output.element).innerText).toBe(OUTPUT_DECIMAL);
+    expect(invalidBinaryError).toBe(true);
   });
 
   test("handles too many characters", async () => {
@@ -69,8 +84,12 @@ describe("BinaryConverterVue", () => {
 
     await input.setValue(INPUT_BINARY);
 
-    expect((<HTMLInputElement>output.element).innerText).toBe(OUTPUT_DECIMAL);
+    const formErrors: FormError[] = (wrapper.vm as any).validateForm();
+    const invalidBinaryError = formErrors.some((formError) => {
+      return formError.message === ERROR_BINARY_MAX_LENGTH;
+    });
 
-    // TODO: check for error message
+    expect((<HTMLInputElement>output.element).innerText).toBe(OUTPUT_DECIMAL);
+    expect(invalidBinaryError).toBe(true);
   });
 });
