@@ -55,9 +55,9 @@ function validateForm(): FormError[] {
     <div class="space-y-2">
       <p class="m-0 block text-sm font-medium text-gray-700 dark:text-gray-200">
         <span class="font-bold">Decimal:&nbsp;</span>
-        <span class="text-primary-400 font-black" data-test="output">{{
-          decimalOutput
-        }}</span>
+        <span class="text-primary-400 font-black" data-test="output">
+          {{ decimalOutput }}
+        </span>
       </p>
     </div>
   </UCard>
