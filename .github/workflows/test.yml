@@ -25,13 +25,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: "20"
+          bun-version: "20"
 
       - name: Install dependencies
-        run: npm clean-install
+        run: bun clean-install
 
       - name: Generate Static Site
-        run: npm run test
+        run: bun run test
