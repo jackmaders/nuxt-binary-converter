@@ -1,4 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true }
-})
+  modules: ["@nuxtjs/eslint-module"],
+  devtools: { enabled: true },
+  eslint: {
+    // prevent warning on startup
+    lintOnStart: false,
+  },
+});
