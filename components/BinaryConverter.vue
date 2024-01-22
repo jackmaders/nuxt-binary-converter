@@ -44,6 +44,7 @@ function validateForm(): FormError[] {
 <template>
   <UCard class="mx-auto w-96">
     <template #header>
+      <!-- TODO: eager validation -->
       <UForm :validate="validateForm" :state="state" class="space-y-4">
         <UFormGroup label="Binary" name="binaryInput">
           <UInput v-model="state.binaryInput" data-test="input" />
