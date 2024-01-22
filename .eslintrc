@@ -1,5 +1,10 @@
 {
-    "root": true,
-    "extends": ["@nuxtjs/eslint-config-typescript", "prettier"],
-  
+  "root": true,
+  "extends": [
+    "@nuxtjs/eslint-config-typescript",
+    "prettier"
+  ],
+  "rules": {
+    "no-warning-comments": "warn"
   }
+}
