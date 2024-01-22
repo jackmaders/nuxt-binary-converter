@@ -1,9 +1,10 @@
 function convertBinary(binaryInput: string) {
   if (binaryInput === "") return NaN;
-  if (!binaryRegex.test(binaryInput)) return NaN;
+  if (!BINARY_REGEX.test(binaryInput)) return NaN;
 
   let decimalOutput = 0;
 
+  // TODO: replace with incrementing
   for (
     let binaryIndex = binaryInput.length - 1;
     binaryIndex > -1;
