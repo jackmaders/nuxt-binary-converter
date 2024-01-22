@@ -1,6 +1,7 @@
 <script setup lang="ts">
 useHeadSafe({
   title: "Binary Converter",
+  link: [{ rel: "icon", type: "image/png", href: "favicon.ico" }],
 });
 </script>
 
