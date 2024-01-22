@@ -7,13 +7,13 @@ export default defineNuxtConfig({
     "@nuxtjs/eslint-module",
   ],
   devtools: { enabled: true },
-  eslint: {
-    // prevent warning on startup
-    lintOnStart: false,
-  },
   tailwindcss: {
     // prevent message on startup
     viewer: false,
+  },
+  eslint: {
+    // prevent warning on startup
+    lintOnStart: false,
   },
   experimental: {
     appManifest: false,
