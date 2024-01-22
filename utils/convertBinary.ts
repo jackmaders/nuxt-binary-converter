@@ -4,14 +4,10 @@ function convertBinary(binaryInput: string) {
 
   let decimalOutput = 0;
 
-  // TODO: replace with incrementing
-  for (
-    let binaryIndex = binaryInput.length - 1;
-    binaryIndex > -1;
-    binaryIndex--
-  ) {
-    const binaryCharacter = binaryInput[binaryIndex];
-    const binaryValue = 2 ** (binaryInput.length - binaryIndex - 1);
+  for (let index = 0; index < binaryInput.length; index++) {
+    const binaryCharacter = binaryInput[index];
+    const binaryExponent = binaryInput.length - index - 1;
+    const binaryValue = 2 ** binaryExponent;
 
     decimalOutput += parseInt(binaryCharacter) * binaryValue;
   }

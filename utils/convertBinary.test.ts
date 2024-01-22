@@ -45,13 +45,18 @@ describe("Edge cases", () => {
     expect(result).toBe(NaN);
   });
 
-  test("Non-numeric returns Nan", () => {
+  test("Non-numeric returns NaN", () => {
     const result = convertBinary("ab");
     expect(result).toBe(NaN);
   });
 
-  test("Non-binary returns Nan", () => {
+  test("Non-binary returns NaN", () => {
     const result = convertBinary("2");
+    expect(result).toBe(NaN);
+  });
+
+  test("Soft match for binary RegEx", () => {
+    const result = convertBinary("112");
     expect(result).toBe(NaN);
   });
 });
